@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  description: |
+    Pinterest CM sv-cl API
+  version: 1.0.5
+  title: Pinterbest
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: 'https://virtserver.swaggerhub.com/code-mexicans/pinterestAPI/1.0.5'
+  - url: 'http://52.59.228.167'
+    description: Main production server
+tags:
+  - name: auth
+    description: Authorization operations
+  - name: pin
+    description: Everything about pins
+  - name: board
+    description: Everything about boards
+  - name: profile
+    description: Operations about profile
+paths:
+  /auth/signup:
+    $ref: paths/auth@signup.yaml
+  /auth/login:
+    $ref: paths/auth@login.yaml
+  /auth/logout:
+    $ref: paths/auth@logout.yaml
+  /auth/check:
+    $ref: paths/auth@check.yaml
+  /profile:
+    $ref: paths/profile.yaml
+  '/profile/{ID_or_username}':
+    $ref: 'paths/profile@{ID_or_username}.yaml'
+  /profile/password:
+    $ref: paths/profile@password.yaml
+  /profile/edit:
+    $ref: paths/profile@edit.yaml
+  /profile/delete:
+    $ref: paths/profile@delete.yaml
+  /board:
+    $ref: paths/board.yaml
+  '/board/{boardID}':
+    $ref: 'paths/board@{boardID}.yaml'
+  /pin:
+    $ref: paths/pin.yaml
+  '/pin/{pinID}':
+    $ref: 'paths/pin@{pinID}.yaml'
+  '/pins/{boardID}':
+    $ref: 'paths/pins@{boardID}.yaml'

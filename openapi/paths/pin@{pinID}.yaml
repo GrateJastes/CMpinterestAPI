@@ -1,0 +1,45 @@
+get:
+  tags:
+    - pin
+  summary: Get pin by ID
+  parameters:
+    - name: pinID
+      in: path
+      description: The ID that needs to be fetched
+      required: true
+      schema:
+        type: integer
+        format: int
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Pin.yaml
+    '400':
+      description: Invalid pin ID supplied
+    '404':
+      description: Pin not found
+delete:
+  tags:
+    - pin
+  summary: Delete pin
+  description: This can only be done by the logged in profile
+  parameters:
+    - name: pinID
+      in: path
+      description: The ID of pin that needs to be deleted
+      required: true
+      schema:
+        type: integer
+        format: int
+  responses:
+    '400':
+      description: Invalid pin ID supplied
+    '403':
+      description: you can't delete foreign pin!
+    '404':
+      description: Pin not found
+    '409':
+      description: conflict happend while deleting entity

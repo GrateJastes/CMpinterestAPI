@@ -1,0 +1,45 @@
+get:
+  tags:
+    - board
+  summary: Get board by ID
+  parameters:
+    - name: boardID
+      in: path
+      description: The ID that needs to be fetched
+      required: true
+      schema:
+        type: integer
+        format: int
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Board.yaml
+    '400':
+      description: Invalid board ID supplied
+    '404':
+      description: Board not found
+delete:
+  tags:
+    - board
+  summary: Delete board
+  description: This can only be done by authorized user
+  parameters:
+    - name: boardID
+      in: path
+      description: The ID of board that needs to be deleted
+      required: true
+      schema:
+        type: integer
+        format: int
+  responses:
+    '400':
+      description: Invalid board ID supplied
+    '403':
+      description: you can't delet foreign board!
+    '404':
+      description: Board not found
+    '409':
+      description: conflict happend while deleting entity

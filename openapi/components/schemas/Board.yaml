@@ -1,0 +1,17 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int
+  authorID:
+    type: integer
+    format: int
+  title:
+    type: string
+  description:
+    type: string
+  avatarIndex:
+    type: integer
+required:
+  - id
+  - title

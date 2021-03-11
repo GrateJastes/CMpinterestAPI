@@ -1,0 +1,31 @@
+put:
+  tags:
+    - profile
+  summary: Update profile
+  description: This can only be done by authorized user
+  responses:
+    '200':
+      description: successfully updated profile
+    '401':
+      description: unauthorized
+    '404':
+      description: Profile not found
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            username:
+              type: string
+            email:
+              type: string
+              format: email
+            avatar:
+              type: string
+              format: binary
+    description: Updated user object
+    required: true

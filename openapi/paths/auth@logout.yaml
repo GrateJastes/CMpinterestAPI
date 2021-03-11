@@ -1,0 +1,9 @@
+post:
+  tags:
+    - auth
+  summary: Log out from current session
+  responses:
+    '200':
+      description: logged out
+    '401':
+      description: unauthorized

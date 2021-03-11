@@ -1,0 +1,28 @@
+post:
+  tags:
+    - auth
+  summary: Create profile
+  description: This can only be done by the unlogged user
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              format: password
+          description: Created profile object
+    required: true
+  responses:
+    '201':
+      description: successfully created profile
+    '403':
+      description: you are already authorized. Log out first
+    '409':
+      description: user already exists

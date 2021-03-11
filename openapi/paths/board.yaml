@@ -1,0 +1,23 @@
+post:
+  tags:
+    - board
+  summary: Create new board
+  description: This can only bo done by authorized user
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+    description: Created board object
+    required: true
+  responses:
+    '201':
+      description: successfully created board
+    '400':
+      description: failed to create board
+    '403':
+      description: unauthorized attempt to create board

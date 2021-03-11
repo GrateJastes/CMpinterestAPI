@@ -1,0 +1,492 @@
+openapi: 3.0.0
+info:
+  description: |
+    Pinterest CM sv-cl API
+  version: 1.0.5
+  title: Pinterbest
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/code-mexicans/pinterestAPI/1.0.5
+  - url: 'http://52.59.228.167'
+    description: Main production server
+tags:
+  - name: auth
+    description: Authorization operations
+  - name: pin
+    description: Everything about pins
+  - name: board
+    description: Everything about boards
+  - name: profile
+    description: Operations about profile
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      summary: Create profile
+      description: This can only be done by the unlogged user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              description: Created profile object
+        required: true
+      responses:
+        '201':
+          description: successfully created profile
+        '403':
+          description: you are already authorized. Log out first
+        '409':
+          description: user already exists
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Logs user into the system
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: successful operation
+        '403':
+          description: you are already authorized. Log out first
+        '400':
+          description: Invalid username or password supplied
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: Log out from current session
+      responses:
+        '200':
+          description: logged out
+        '401':
+          description: unauthorized
+  /auth/check:
+    get:
+      tags:
+        - auth
+      summary: Checks if current user is logged in
+      responses:
+        '200':
+          description: user is authorized
+        '401':
+          description: user is unauthorized
+  /profile:
+    get:
+      tags:
+        - profile
+      summary: Get profile of the current user
+      responses:
+        '200':
+          description: profile found
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  avatarLink:
+                    type: string
+        '401':
+          description: user is not authorized
+  '/profile/{ID_or_username}':
+    get:
+      tags:
+        - profile
+      summary: Get profile by username OR ID
+      parameters:
+        - name: ID_or_username
+          in: path
+          description: That could be username !OR! userID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: profile found
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  avatarLink:
+                    type: string
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: Profile not found
+  /profile/password:
+    put:
+      tags:
+        - profile
+      summary: Update user password
+      description: This can only be done by authorized user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: successfully updated password
+        '401':
+          description: unauthorized
+  /profile/edit:
+    put:
+      tags:
+        - profile
+      summary: Update profile
+      description: This can only be done by authorized user
+      responses:
+        '200':
+          description: successfully updated profile
+        '401':
+          description: unauthorized
+        '404':
+          description: Profile not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                avatar:
+                  type: string
+                  format: binary
+        description: Updated user object
+        required: true
+  /profile/delete:
+    delete:
+      tags:
+        - profile
+      summary: Delete profile
+      description: This can only be done by authorized user
+      responses:
+        '400':
+          description: Invalid username supplied
+        '401':
+          description: unauthorized
+        '404':
+          description: Profile not found
+        '409':
+          description: conflict happend while deleting entity
+  /board:
+    post:
+      tags:
+        - board
+      summary: Create new board
+      description: This can only bo done by authorized user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+        description: Created board object
+        required: true
+      responses:
+        '201':
+          description: successfully created board
+        '403':
+          description: unauthorized attempt to create board
+        '400':
+          description: failed to create board
+  '/board/{boardID}':
+    get:
+      tags:
+        - board
+      summary: Get board by ID
+      parameters:
+        - name: boardID
+          in: path
+          description: The ID that needs to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
+        '400':
+          description: Invalid board ID supplied
+        '404':
+          description: Board not found
+    delete:
+      tags:
+        - board
+      summary: Delete board
+      description: This can only be done by authorized user
+      parameters:
+        - name: boardID
+          in: path
+          description: The ID of board that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int
+      responses:
+        '400':
+          description: Invalid board ID supplied
+        '409':
+          description: conflict happend while deleting entity
+        '403':
+          description: you can't delet foreign board!
+        '404':
+          description: Board not found
+  /pin:
+    post:
+      tags:
+        - pin
+      summary: Create new pin
+      description: This can only bo done by authorized user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                pinImage:
+                  type: string
+                  format: binary
+                boardID:
+                  type: integer
+        description: Created pin
+        required: true
+      responses:
+        '201':
+          description: successfully created pin
+        '400':
+          description: failed to creaet pin
+        '404':
+          description: board didn't found to place pin
+        '403':
+          description: can't create pin while not logged in
+  '/pin/{pinID}':
+    get:
+      tags:
+        - pin
+      summary: Get pin by ID
+      parameters:
+        - name: pinID
+          in: path
+          description: The ID that needs to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pin'
+        '400':
+          description: Invalid pin ID supplied
+        '404':
+          description: Pin not found
+    delete:
+      tags:
+        - pin
+      summary: Delete pin
+      description: This can only be done by the logged in profile
+      parameters:
+        - name: pinID
+          in: path
+          description: The ID of pin that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int
+      responses:
+        '400':
+          description: Invalid pin ID supplied
+        '404':
+          description: Pin not found
+        '403':
+          description: you can't delete foreign pin!
+        '409':
+          description: conflict happend while deleting entity
+  '/pins/{boardID}':
+    get:
+      tags:
+        - board
+        - pin
+      summary: Get pins by board id
+      parameters:
+        - name: boardID
+          in: path
+          description: The ID of target board
+          required: true
+          schema:
+            type: integer
+            format: int
+        - name: pinNumber
+          in: query
+          description: Number of pins to fetch
+          required: true
+          schema:
+            type: integer
+            format: int
+        - name: sortingCrit
+          in: query
+          description: The identifier of criterion to provide next pinNumber pins
+          required: false
+          schema:
+            type: string
+            format: int
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Board'
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Pin'
+        '400':
+          description: Invalid board ID supplied
+        '404':
+          description: Board not found
+  
+components:
+  schemas:
+    Pin:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int
+        boardID:
+          type: integer
+          format: int
+        title:
+          type: string
+        description:
+          type: string
+        imageLink:
+          type: string
+        relatedTagIDs:
+          type: array
+          items:
+            type: string
+      required: 
+        - id
+        - title
+        - boardID
+        - imageLink
+    Board:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int
+        authorID:
+          type: integer
+          format: int
+        title:
+          type: string
+        description:
+          type: string
+        avatarIndex:
+          type: integer
+      required: 
+        - id
+        - title
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int
+        name:
+          type: string
+      required: 
+        - name
+        - id
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        avatarLink:
+          type: string
+      required:
+        - username
+        - email
+        - password

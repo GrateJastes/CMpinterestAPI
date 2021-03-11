@@ -1,0 +1,9 @@
+get:
+  tags:
+    - auth
+  summary: Checks if current user is logged in
+  responses:
+    '200':
+      description: user is authorized
+    '401':
+      description: user is unauthorized
