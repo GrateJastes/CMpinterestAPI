@@ -1,4 +1,5 @@
 get:
+  operationId: getSelfProfile
   tags:
     - profile
   summary: Get profile of the current user

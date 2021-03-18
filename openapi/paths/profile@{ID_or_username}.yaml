@@ -1,4 +1,5 @@
 get:
+  operationId: getProfileByUsernameOrID
   tags:
     - profile
   summary: Get profile by username OR ID

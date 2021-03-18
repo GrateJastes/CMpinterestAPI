@@ -1,4 +1,5 @@
 get:
+  operationId: checkUserAuth
   tags:
     - auth
   summary: Checks if current user is logged in

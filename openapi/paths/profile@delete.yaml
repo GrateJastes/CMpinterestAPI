@@ -1,9 +1,12 @@
 delete:
+  operationId: deleteSelfProfile
   tags:
     - profile
   summary: Delete profile
   description: This can only be done by authorized user
   responses:
+    '200':
+      description: Profile deleted successfully
     '400':
       description: Invalid username supplied
     '401':
