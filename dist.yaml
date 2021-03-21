@@ -219,12 +219,8 @@ paths:
       responses:
         '200':
           description: Profile deleted successfully
-        '400':
-          description: Invalid username supplied
         '401':
           description: unauthorized
-        '404':
-          description: Profile not found
         '409':
           description: conflict happend while deleting entity
   /board:
