@@ -18,6 +18,8 @@ get:
                 type: string
               lastName:
                 type: string
+              email:
+                type: string
               avatarLink:
                 type: string
     '401':
