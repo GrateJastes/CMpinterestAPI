@@ -23,6 +23,8 @@ post:
   responses:
     '201':
       description: successfully created profile
+    '400':
+      description: invalid credentials supplied
     '403':
       description: you are already authorized. Log out first
     '409':
