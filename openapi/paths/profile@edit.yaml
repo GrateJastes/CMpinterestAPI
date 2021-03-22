@@ -11,6 +11,8 @@ put:
       description: unauthorized
     '404':
       description: Profile not found
+    '409':
+      description: update conflict
   requestBody:
     content:
       application/json:
