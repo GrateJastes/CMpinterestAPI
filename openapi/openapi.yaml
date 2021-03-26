@@ -43,6 +43,8 @@ paths:
     $ref: paths/board.yaml
   '/board/{boardID}':
     $ref: 'paths/board@{boardID}.yaml'
+  '/boards/{authorID}':
+    $ref: 'paths/boards@{authorID}.yaml'
   /pin:
     $ref: paths/pin.yaml
   '/pin/{pinID}':

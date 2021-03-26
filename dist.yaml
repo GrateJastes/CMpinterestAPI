@@ -46,6 +46,8 @@ paths:
       responses:
         '201':
           description: successfully created profile
+        '400':
+          description: invalid credentials supplied
         '403':
           description: you are already authorized. Log out first
         '409':
@@ -116,6 +118,8 @@ paths:
                   firstName:
                     type: string
                   lastName:
+                    type: string
+                  email:
                     type: string
                   avatarLink:
                     type: string
@@ -188,8 +192,8 @@ paths:
           description: successfully updated profile
         '401':
           description: unauthorized
-        '404':
-          description: Profile not found
+        '409':
+          description: update conflict
       requestBody:
         content:
           application/json:
@@ -221,8 +225,6 @@ paths:
           description: Profile deleted successfully
         '401':
           description: unauthorized
-        '409':
-          description: conflict happend while deleting entity
   /board:
     post:
       operationId: createBoard
@@ -298,6 +300,35 @@ paths:
           description: Board not found
         '409':
           description: conflict happend while deleting entity
+  '/boards/{authorID}':
+    get:
+      operationId: getProfileBoards
+      tags:
+        - board
+      summary: Get boards by author ID
+      parameters:
+        - name: authorID
+          in: path
+          description: The boards' author ID
+          required: true
+          schema:
+            type: integer
+            format: int
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  boards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Board'
+        '400':
+          description: Invalid author ID supplied
+        '404':
+          description: Boards not found
   /pin:
     post:
       operationId: createPin

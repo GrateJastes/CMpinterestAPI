@@ -17,9 +17,7 @@ get:
       content:
         application/json:
           schema:
-            properties:
-              boards:
-                type: array
+            - type: array
                 items:
                   $ref: ../components/schemas/Board.yaml
     '400':

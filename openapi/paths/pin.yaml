@@ -28,7 +28,7 @@ post:
     '201':
       description: successfully created pin
     '400':
-      description: failed to creaet pin
+      description: failed to creaet pin due to invalid data
     '403':
       description: can't create pin while not logged in
     '404':
