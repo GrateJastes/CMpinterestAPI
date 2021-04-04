@@ -12,19 +12,19 @@ get:
         format: int
       description: The ID of target board
       required: true
-  requestBody:
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            pinNumber:
-              type: integer
-              description: Number of pins to fetch. If "0" or more then max number supplied, try to fetch all
-            sortingCrit:
-              type: string
-              description: The identifier of criterion to provide next pinNumber pins
-    required: true
+    - name: pinNumber
+      in: query
+      schema:
+        type: integer
+        format: int
+      description: Number of pins to fetch. If not supplied, try to fetch all
+      required: false
+    - name: sortingCrit
+      in: query
+      schema:
+        type: string
+      description: The identifier of criterion to provide next pinNumber pins. If not supplied sort by id
+      required: false
   responses:
     '200':
       description: Successful operation
