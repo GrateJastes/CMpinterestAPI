@@ -230,10 +230,12 @@ paths:
       description: This can only bo done by authorized user
       requestBody:
         content:
-          image/png:
-            schema:
-              type: string
-              format: binary
+          multipart/form-data:
+            type: object
+            properties:
+              avatarImage:
+                type: string
+                format: binary
         description: >-
           Avatar binary image. I'm not sure that it will be only png. Need to
           check that.
