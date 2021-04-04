@@ -1,15 +1,15 @@
 get:
-  operationId: getPinsByBoardID
+  operationId: getPinsByProfileID
   tags:
     - pin
-  summary: Get pins by board id of their board
+  summary: Get pins by profile id
   parameters:
-    - name: boardID
+    - name: profileID
       in: path
       schema:
         type: integer
         format: int
-      description: The ID of target board
+      description: The ID of target profile
       required: true
     - name: pinNumber
       in: query
@@ -37,6 +37,6 @@ get:
                 items:
                   $ref: ../components/schemas/Pin.yaml
     '400':
-      description: Invalid board ID supplied
+      description: Invalid profile ID supplied
     '404':
-      description: Board not found
+      description: Profile not found
