@@ -1,4 +1,5 @@
 get:
+  operationId: getBoardByID
   tags:
     - board
   summary: Get board by ID
@@ -22,6 +23,7 @@ get:
     '404':
       description: Board not found
 delete:
+  operationId: deleteBoardByID
   tags:
     - board
   summary: Delete board
@@ -36,7 +38,7 @@ delete:
         format: int
   responses:
     '204':
-      description: Successfult operation
+      description: Successful operation
     '400':
       description: Invalid board ID supplied
     '401':

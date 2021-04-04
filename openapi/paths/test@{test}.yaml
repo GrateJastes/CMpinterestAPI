@@ -1,0 +1,26 @@
+get:
+  operationId: getProfileBoards
+  tags:
+    - board
+  summary: Get boards by author ID
+  parameters:
+    - name: authorID
+      in: path
+      description: The boards' author ID
+      required: true
+      schema:
+        type: integer
+        format: int
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            - type: array
+                items:
+                  $ref: ../components/schemas/Board.yaml
+    '400':
+      description: Invalid author ID supplied
+    '404':
+      description: Boards not found

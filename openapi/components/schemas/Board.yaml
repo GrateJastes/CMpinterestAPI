@@ -10,8 +10,8 @@ properties:
     type: string
   description:
     type: string
-  avatarIndex:
-    type: integer
+  avatarLink:
+    type: string
 required:
   - id
   - title

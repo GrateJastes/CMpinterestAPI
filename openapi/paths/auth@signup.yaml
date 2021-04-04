@@ -1,4 +1,5 @@
 post:
+  operationId: signupUser
   tags:
     - auth
   summary: Create profile
@@ -23,6 +24,8 @@ post:
   responses:
     '201':
       description: Successfully created profile
+    '400':
+      description: Invalid credentials supplied
     '403':
       description: You are already authorized. Log out first
     '409':

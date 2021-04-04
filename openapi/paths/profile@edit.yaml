@@ -1,4 +1,5 @@
 put:
+  operationId: editProfile
   tags:
     - profile
   summary: Update profile

@@ -1,8 +1,9 @@
 get:
+  operationId: getPinsByBoardID
   tags:
     - board
     - pin
-  summary: Get pins by board id
+  summary: Get pins by board id of their board
   parameters:
     - name: boardID
       in: path
@@ -11,20 +12,18 @@ get:
       schema:
         type: integer
         format: int
-    - name: pinNumber
-      in: query
-      description: Number of pins to fetch
-      required: true
-      schema:
-        type: integer
-        format: int
-    - name: sortingCrit
-      in: query
-      description: The identifier of criterion to provide next pinNumber pins
-      required: false
-      schema:
-        type: string
-        format: int
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            pinNumber:
+              type: integer
+              description: Number of pins to fetch
+            sortingCrit:
+              type: string
+              description: The identifier of criterion to provide next pinNumber pins
   responses:
     '200':
       description: Successful operation

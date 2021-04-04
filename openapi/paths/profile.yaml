@@ -1,4 +1,5 @@
 get:
+  operationId: getSelfProfile
   tags:
     - profile
   summary: Get profile of the current user
@@ -16,6 +17,8 @@ get:
               firstName:
                 type: string
               lastName:
+                type: string
+              email:
                 type: string
               avatarLink:
                 type: string

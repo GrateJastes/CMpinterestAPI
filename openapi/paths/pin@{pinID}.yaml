@@ -1,4 +1,5 @@
 get:
+  operationId: getPinByID
   tags:
     - pin
   summary: Get pin by ID
@@ -22,9 +23,10 @@ get:
     '404':
       description: Pin not found
 delete:
+  operationId: deletePinByID
   tags:
     - pin
-  summary: Delete pin
+  summary: Delete pin by ID
   description: This can only be done by the logged in profile
   parameters:
     - name: pinID
@@ -35,8 +37,13 @@ delete:
         type: integer
         format: int
   responses:
+<<<<<<< HEAD
     '204':
       description: Successful operation
+=======
+    '200':
+      description: Pin deleted successfully
+>>>>>>> dev
     '400':
       description: Invalid pin ID supplied
     '401':
