@@ -14,6 +14,7 @@ post:
             password:
               type: string
               format: password
+    required: true
   responses:
     '204':
       description: Successful operation

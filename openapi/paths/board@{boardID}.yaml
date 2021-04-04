@@ -31,11 +31,11 @@ delete:
   parameters:
     - name: boardID
       in: path
-      description: The ID of board that needs to be deleted
-      required: true
       schema:
         type: integer
         format: int
+      description: The ID of board that needs to be deleted
+      required: true
   responses:
     '204':
       description: Successful operation

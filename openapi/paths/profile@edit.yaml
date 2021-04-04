@@ -18,10 +18,7 @@ put:
             email:
               type: string
               format: email
-            avatar:
-              type: string
-              format: binary
-    description: Updated user object
+    description: Updated user profile
     required: true
   responses:
     '204':

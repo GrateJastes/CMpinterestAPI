@@ -2,13 +2,13 @@ openapi: 3.0.0
 info:
   description: |
     Pinterest CM sv-cl API
-  version: 1.0.6
+  version: 1.1.0
   title: Pinterbest
   license:
     name: Pinterbest
     url: https://github.com/frontend-park-mail-ru/2021_1_Code_Magicians
 servers:
-  - url: 'http://52.59.228.167:8080'
+  - url: 'http://52.59.228.167:8081'
     description: Main production server
 tags:
   - name: auth
@@ -19,6 +19,8 @@ tags:
     description: Everything about boards
   - name: profile
     description: Operations about profile
+  - name: comments
+    description: Operations about comments
 paths:
   /auth/signup:
     $ref: paths/auth@signup.yaml
@@ -36,8 +38,12 @@ paths:
     $ref: paths/profile@password.yaml
   /profile/edit:
     $ref: paths/profile@edit.yaml
+  /profile/avatar:
+    $ref: paths/profile@avatar.yaml
   /profile/delete:
     $ref: paths/profile@delete.yaml
+  '/follow/{ID_or_username}':
+    $ref: 'paths/follow@{ID_or_username}.yaml'
   /board:
     $ref: paths/board.yaml
   '/board/{boardID}':
@@ -50,3 +56,7 @@ paths:
     $ref: 'paths/pin@{pinID}.yaml'
   '/pins/{boardID}':
     $ref: 'paths/pins@{boardID}.yaml'
+  '/comment/{pinID}':
+    $ref: 'paths/comment@{pinID}.yaml'
+  '/comments/{pinID}':
+    $ref: 'paths/comments@{pinID}.yaml'

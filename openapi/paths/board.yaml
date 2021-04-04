@@ -13,7 +13,7 @@ post:
               type: string
             description:
               type: string
-    description: Created board object
+    description: New board object
     required: true
   responses:
     '201':

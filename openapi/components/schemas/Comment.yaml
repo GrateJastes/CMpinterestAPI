@@ -10,6 +10,7 @@ properties:
     type: integer
     format: int
   addingTime:
-    type: date-time
+    type: string
+    format: date-time
   text:
     type: string

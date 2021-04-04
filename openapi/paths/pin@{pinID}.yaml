@@ -6,11 +6,11 @@ get:
   parameters:
     - name: pinID
       in: path
-      description: The ID that needs to be fetched
-      required: true
       schema:
         type: integer
         format: int
+      description: The ID that needs to be fetched
+      required: true
   responses:
     '200':
       description: Successful operation
@@ -31,19 +31,14 @@ delete:
   parameters:
     - name: pinID
       in: path
-      description: The ID of pin that needs to be deleted
-      required: true
       schema:
         type: integer
         format: int
+      description: The ID of pin that needs to be deleted
+      required: true
   responses:
-<<<<<<< HEAD
     '204':
       description: Successful operation
-=======
-    '200':
-      description: Pin deleted successfully
->>>>>>> dev
     '400':
       description: Invalid pin ID supplied
     '401':

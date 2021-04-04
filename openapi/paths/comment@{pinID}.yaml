@@ -1,4 +1,5 @@
 post:
+  operationId: addComment
   tags:
     - comment
   summary: Post new comment to pin
@@ -6,11 +7,11 @@ post:
   parameters:
     - name: pinID
       in: path
-      description: Pin ID to add a comment
-      required: true
       schema:
         type: integer
         format: int
+      description: Pin ID to add a comment
+      required: true
   requestBody:
     content:
       application/json:
@@ -19,7 +20,7 @@ post:
           properties:
             text:
               type: string
-    description: Comment details. Now only text
+    description: Comment details. Only text for now
     required: true
   responses:
     '201':

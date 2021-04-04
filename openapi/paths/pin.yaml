@@ -26,7 +26,7 @@ post:
             pinImage:
               type: string
               format: binary
-    description: Created pin
+    description: New pin
     required: true
   responses:
     '201':

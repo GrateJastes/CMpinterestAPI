@@ -1,24 +1,28 @@
 get:
+  operationId: getCommentsByPin
   tags:
     - comments
   summary: Get comments by pin ID
   parameters:
     - name: pinID
       in: path
-      description: Pin ID to fetch it's comments
-      required: true
       schema:
         type: integer
         format: int
+      description: Pin ID to fetch it's comments
+      required: true
   responses:
     '200':
       description: Successful operation. If there's no comments, should send empty(!) array
       content:
         application/json:
           schema:
-            - type: array
-              items:
-                $ref: ../components/schemas/Comment.yaml
+            type: object
+            properties:
+              comments:
+                type: array
+                items:
+                  $ref: ../components/schemas/Comment.yaml
     '400':
       description: Invalid pin ID supplied
     '404':

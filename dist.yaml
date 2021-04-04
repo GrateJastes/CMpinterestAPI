@@ -2,13 +2,13 @@ openapi: 3.0.0
 info:
   description: |
     Pinterest CM sv-cl API
-  version: 1.0.6
+  version: 1.1.0
   title: Pinterbest
   license:
     name: Pinterbest
     url: 'https://github.com/frontend-park-mail-ru/2021_1_Code_Magicians'
 servers:
-  - url: 'http://52.59.228.167:8080'
+  - url: 'http://52.59.228.167:8081'
     description: Main production server
 tags:
   - name: auth
@@ -19,6 +19,8 @@ tags:
     description: Everything about boards
   - name: profile
     description: Operations about profile
+  - name: comments
+    description: Operations about comments
 paths:
   /auth/signup:
     post:
@@ -41,17 +43,17 @@ paths:
                 password:
                   type: string
                   format: password
-              description: Created profile object
+              description: New profile object
         required: true
       responses:
         '201':
-          description: successfully created profile
+          description: Successfully created profile
         '400':
-          description: invalid credentials supplied
+          description: Invalid credentials supplied
         '403':
-          description: you are already authorized. Log out first
+          description: You are already authorized. Log out first
         '409':
-          description: user already exists
+          description: User already exists
   /auth/login:
     post:
       tags:
@@ -69,13 +71,16 @@ paths:
                 password:
                   type: string
                   format: password
+        required: true
       responses:
-        '200':
-          description: successful operation
+        '204':
+          description: Successful operation
         '400':
           description: Invalid username or password supplied
         '403':
-          description: you are already authorized. Log out first
+          description: You are already authorized. Log out first
+        '404':
+          description: User not found
   /auth/logout:
     post:
       operationId: logoutUser
@@ -83,10 +88,10 @@ paths:
         - auth
       summary: Log out from current session
       responses:
-        '200':
-          description: logged out
+        '204':
+          description: Logged out
         '401':
-          description: unauthorized
+          description: User unauthorized
   /auth/check:
     get:
       operationId: checkUserAuth
@@ -94,10 +99,10 @@ paths:
         - auth
       summary: Checks if current user is logged in
       responses:
-        '200':
-          description: user is authorized
+        '204':
+          description: User is authorized
         '401':
-          description: user is unauthorized
+          description: User is unauthorized
   /profile:
     get:
       operationId: getSelfProfile
@@ -106,7 +111,7 @@ paths:
       summary: Get profile of the current user
       responses:
         '200':
-          description: profile found
+          description: Profile found
           content:
             application/json:
               schema:
@@ -124,7 +129,7 @@ paths:
                   avatarLink:
                     type: string
         '401':
-          description: user is not authorized
+          description: User unauthorized
   '/profile/{ID_or_username}':
     get:
       operationId: getProfileByUsernameOrID
@@ -134,13 +139,13 @@ paths:
       parameters:
         - name: ID_or_username
           in: path
-          description: That could be username !OR! userID
-          required: true
           schema:
             type: string
+          description: That could be username !OR! userID
+          required: true
       responses:
         '200':
-          description: profile found
+          description: Profile found
           content:
             application/json:
               schema:
@@ -156,7 +161,7 @@ paths:
                   avatarLink:
                     type: string
         '400':
-          description: Invalid username supplied
+          description: Invalid ID or username supplied
         '404':
           description: Profile not found
   /profile/password:
@@ -175,11 +180,15 @@ paths:
                 password:
                   type: string
                   format: password
+        description: New password
+        required: true
       responses:
-        '200':
-          description: successfully updated password
+        '204':
+          description: Successfully updated password
+        '400':
+          description: Invalid password data supplied
         '401':
-          description: unauthorized
+          description: User unauthorized
   /profile/edit:
     put:
       operationId: editProfile
@@ -187,13 +196,6 @@ paths:
         - profile
       summary: Update profile
       description: This can only be done by authorized user
-      responses:
-        '200':
-          description: successfully updated profile
-        '401':
-          description: unauthorized
-        '409':
-          description: update conflict
       requestBody:
         content:
           application/json:
@@ -208,11 +210,41 @@ paths:
                 email:
                   type: string
                   format: email
-                avatar:
-                  type: string
-                  format: binary
-        description: Updated user object
+        description: Updated user profile
         required: true
+      responses:
+        '204':
+          description: Successfully updated profile
+        '400':
+          description: Invalid data supplied
+        '401':
+          description: User unauthorized
+        '404':
+          description: Profile not found
+  /profile/avatar:
+    put:
+      operationId: updateProfileAvatar
+      tags:
+        - profile
+      summary: Post user avatar
+      description: This can only bo done by authorized user
+      requestBody:
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+        description: >-
+          Avatar binary image. I'm not sure that it will be only png. Need to
+          check that.
+        required: true
+      responses:
+        '204':
+          description: Successfully added avatar
+        '400':
+          description: Invalid image supplied
+        '401':
+          description: User unauthorized
   /profile/delete:
     delete:
       operationId: deleteSelfProfile
@@ -221,10 +253,59 @@ paths:
       summary: Delete profile
       description: This can only be done by authorized user
       responses:
-        '200':
-          description: Profile deleted successfully
+        '204':
+          description: Succesful operation
         '401':
-          description: unauthorized
+          description: User unauthorized
+  '/follow/{ID_or_username}':
+    post:
+      operationId: followProfile
+      tags:
+        - profile
+      summary: Follow foreign profile
+      description: This can only be done by authorized user
+      parameters:
+        - name: ID_or_username
+          in: path
+          schema:
+            type: string
+          description: The ID or username of profile to follow
+          required: true
+      responses:
+        '204':
+          description: Successful operation
+        '400':
+          description: Invalid ID or username supplied
+        '401':
+          description: User unauthorized
+        '404':
+          description: Target profile not found
+        '409':
+          description: Already following
+    delete:
+      operationId: unfollowProfile
+      tags:
+        - profile
+      summary: Stop following foreign profile
+      description: This can only be done by authorized user
+      parameters:
+        - name: ID_or_username
+          in: path
+          schema:
+            type: string
+          description: The ID or username of profile to unfollow
+          required: true
+      responses:
+        '204':
+          description: Successful operation
+        '400':
+          description: Invalid ID or username supplied
+        '401':
+          description: User unauthorized
+        '404':
+          description: Target profile not found
+        '409':
+          description: Already not following
   /board:
     post:
       operationId: createBoard
@@ -241,15 +322,15 @@ paths:
                   type: string
                 description:
                   type: string
-        description: Created board object
+        description: New board object
         required: true
       responses:
         '201':
-          description: successfully created board
+          description: Successfully created board
         '400':
-          description: failed to create board
-        '403':
-          description: unauthorized attempt to create board
+          description: Failed to create board due to invalid propreties
+        '401':
+          description: User unauthorized
   '/board/{boardID}':
     get:
       operationId: getBoardByID
@@ -266,7 +347,7 @@ paths:
             format: int
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -284,22 +365,24 @@ paths:
       parameters:
         - name: boardID
           in: path
-          description: The ID of board that needs to be deleted
-          required: true
           schema:
             type: integer
             format: int
+          description: The ID of board that needs to be deleted
+          required: true
       responses:
-        '200':
-          description: Board deleted successfully
+        '204':
+          description: Successful operation
         '400':
           description: Invalid board ID supplied
+        '401':
+          description: User unauthorized
         '403':
-          description: you can't delet foreign board!
+          description: You can't delet foreign board!
         '404':
           description: Board not found
         '409':
-          description: conflict happend while deleting entity
+          description: Conflict happend while deleting entity
   '/boards/{authorID}':
     get:
       operationId: getProfileBoards
@@ -340,31 +423,35 @@ paths:
         content:
           multipart/form-data:
             schema:
+              type: object
               properties:
-                title:
-                  type: string
-                description:
-                  type: string
-                tags:
-                  type: array
-                  items:
-                    type: string
+                pinInfo:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                    boardID:
+                      type: integer
                 pinImage:
                   type: string
                   format: binary
-                boardID:
-                  type: integer
-        description: Created pin
+        description: New pin
         required: true
       responses:
         '201':
-          description: successfully created pin
+          description: Successfully created pin
         '400':
-          description: failed to creaet pin
+          description: Failed to creaet pin due to invalid data
         '403':
-          description: can't create pin while not logged in
+          description: Can't create pin while not logged in
         '404':
-          description: board didn't found to place pin
+          description: Board didn't found to place pin
   '/pin/{pinID}':
     get:
       operationId: getPinByID
@@ -374,14 +461,14 @@ paths:
       parameters:
         - name: pinID
           in: path
-          description: The ID that needs to be fetched
-          required: true
           schema:
             type: integer
             format: int
+          description: The ID that needs to be fetched
+          required: true
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -399,22 +486,24 @@ paths:
       parameters:
         - name: pinID
           in: path
-          description: The ID of pin that needs to be deleted
-          required: true
           schema:
             type: integer
             format: int
+          description: The ID of pin that needs to be deleted
+          required: true
       responses:
-        '200':
-          description: Pin deleted successfully
+        '204':
+          description: Successful operation
         '400':
           description: Invalid pin ID supplied
+        '401':
+          description: User unauthorized
         '403':
-          description: you can't delete foreign pin!
+          description: You can't delete foreign pin!
         '404':
           description: Pin not found
         '409':
-          description: conflict happend while deleting entity
+          description: Conflict happend while deleting entity
   '/pins/{boardID}':
     get:
       operationId: getPinsByBoardID
@@ -425,11 +514,11 @@ paths:
       parameters:
         - name: boardID
           in: path
-          description: The ID of target board
-          required: true
           schema:
             type: integer
             format: int
+          description: The ID of target board
+          required: true
       requestBody:
         content:
           application/json:
@@ -438,25 +527,95 @@ paths:
               properties:
                 pinNumber:
                   type: integer
-                  description: Number of pins to fetch
+                  description: >-
+                    Number of pins to fetch. If "0" or more then max number
+                    supplied, try to fetch all
                 sortingCrit:
                   type: string
                   description: The identifier of criterion to provide next pinNumber pins
+        required: true
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/Board'
-                  - type: array
+                type: object
+                properties:
+                  pins:
+                    type: array
                     items:
                       $ref: '#/components/schemas/Pin'
         '400':
           description: Invalid board ID supplied
         '404':
           description: Board not found
+  '/comment/{pinID}':
+    post:
+      operationId: addComment
+      tags:
+        - comment
+      summary: Post new comment to pin
+      description: This can only be done by authorized user
+      parameters:
+        - name: pinID
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: Pin ID to add a comment
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+        description: Comment details. Only text for now
+        required: true
+      responses:
+        '201':
+          description: Successfully added comment
+        '400':
+          description: Invalid pin ID or other data(text) supplied
+        '401':
+          description: User unauthorized
+        '404':
+          description: Pin not found
+  '/comments/{pinID}':
+    get:
+      operationId: getCommentsByPin
+      tags:
+        - comments
+      summary: Get comments by pin ID
+      parameters:
+        - name: pinID
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: Pin ID to fetch it's comments
+          required: true
+      responses:
+        '200':
+          description: >-
+            Successful operation. If there's no comments, should send empty(!)
+            array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid pin ID supplied
+        '404':
+          description: Pin not found
 components:
   schemas:
     Board:
@@ -472,8 +631,8 @@ components:
           type: string
         description:
           type: string
-        avatarIndex:
-          type: integer
+        avatarLink:
+          type: string
       required:
         - id
         - title
@@ -501,3 +660,20 @@ components:
         - title
         - boardID
         - imageLink
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int
+        userID:
+          type: integer
+          format: int
+        pinID:
+          type: integer
+          format: int
+        addingTime:
+          type: string
+          format: date-time
+        text:
+          type: string

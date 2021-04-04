@@ -6,10 +6,10 @@ get:
   parameters:
     - name: ID_or_username
       in: path
-      description: That could be username !OR! userID
-      required: true
       schema:
         type: string
+      description: That could be username !OR! userID
+      required: true
   responses:
     '200':
       description: Profile found

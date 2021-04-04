@@ -4,7 +4,6 @@ post:
     - auth
   summary: Create profile
   description: This can only be done by the unlogged user
-  operationID: signupUser
   requestBody:
     content:
       application/json:
@@ -19,7 +18,7 @@ post:
             password:
               type: string
               format: password
-          description: Created profile object
+          description: New profile object
     required: true
   responses:
     '201':

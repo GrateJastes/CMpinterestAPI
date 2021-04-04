@@ -12,7 +12,7 @@ properties:
   email:
     type: string
     format: email
-  password:
+  passwordHash:
     type: string
   avatarLink:
     type: string

@@ -1,15 +1,16 @@
 post:
+  operationId: followProfile
   tags:
-    - follow
+    - profile
   summary: Follow foreign profile
   description: This can only be done by authorized user
   parameters:
     - name: ID_or_username
       in: path
-      description: The ID or username of profile to follow
-      required: true
       schema:
         type: string
+      description: The ID or username of profile to follow
+      required: true
   responses:
     '204':
       description: Successful operation
@@ -22,25 +23,26 @@ post:
     '409':
       description: Already following
 delete:
+  operationId: unfollowProfile
   tags:
-    - follow
+    - profile
   summary: Stop following foreign profile
-    description: This can only be done by authorized user
-    parameters:
-      - name: ID_or_username
-        in: path
-        description: The ID or username of profile to unfollow
-        required: true
-        schema:
-          type: string
-    responses:
-      '204':
-        description: Successful operation
-      '400':
-        description: Invalid ID or username supplied
-      '401':
-        description: User unauthorized
-      '404':
-        description: Target profile not found
-      '409':
-        description: Already not following
+  description: This can only be done by authorized user
+  parameters:
+    - name: ID_or_username
+      in: path
+      schema:
+        type: string
+      description: The ID or username of profile to unfollow
+      required: true
+  responses:
+    '204':
+      description: Successful operation
+    '400':
+      description: Invalid ID or username supplied
+    '401':
+      description: User unauthorized
+    '404':
+      description: Target profile not found
+    '409':
+      description: Already not following

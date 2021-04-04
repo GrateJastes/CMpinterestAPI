@@ -7,11 +7,11 @@ get:
   parameters:
     - name: boardID
       in: path
-      description: The ID of target board
-      required: true
       schema:
         type: integer
         format: int
+      description: The ID of target board
+      required: true
   requestBody:
     content:
       application/json:
@@ -20,18 +20,21 @@ get:
           properties:
             pinNumber:
               type: integer
-              description: Number of pins to fetch
+              description: Number of pins to fetch. If "0" or more then max number supplied, try to fetch all
             sortingCrit:
               type: string
               description: The identifier of criterion to provide next pinNumber pins
+    required: true
   responses:
     '200':
       description: Successful operation
       content:
         application/json:
           schema:
-            pins:
-              - type: array
+            type: object
+            properties:
+              pins:
+                type: array
                 items:
                   $ref: ../components/schemas/Pin.yaml
     '400':
