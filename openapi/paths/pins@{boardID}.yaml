@@ -27,12 +27,11 @@ get:
         format: int
   responses:
     '200':
-      description: successful operation
+      description: Successful operation
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: ../components/schemas/Board.yaml
+            pins:
               - type: array
                 items:
                   $ref: ../components/schemas/Pin.yaml

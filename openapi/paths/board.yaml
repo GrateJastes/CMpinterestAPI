@@ -16,8 +16,8 @@ post:
     required: true
   responses:
     '201':
-      description: successfully created board
+      description: Successfully created board
     '400':
-      description: failed to create board
-    '403':
-      description: unauthorized attempt to create board
+      description: Failed to create board due to invalid propreties
+    '401':
+      description: User unauthorized

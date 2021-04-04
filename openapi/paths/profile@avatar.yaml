@@ -1,0 +1,20 @@
+post:
+  tags:
+    - profile
+  summary: Post user avatar
+  description: This can only bo done by authorized user
+  requestBody:
+    content:
+      image/png:
+        schema:
+          type: string
+          format: binary
+    description: Avatar binary image. I'm not sure that it will be only png. Need to check that.
+    required: true
+  responses:
+    '204':
+      description: Successfully added avatar
+    '400':
+      description: Invalid image supplied
+    '401':
+      description: User unauthorized

@@ -15,9 +15,11 @@ post:
               type: string
               format: password
   responses:
-    '200':
-      description: successful operation
+    '204':
+      description: Successful operation
     '400':
       description: Invalid username or password supplied
     '403':
-      description: you are already authorized. Log out first
+      description: You are already authorized. Log out first
+    '404':
+      description: User not found

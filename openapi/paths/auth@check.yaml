@@ -3,7 +3,7 @@ get:
     - auth
   summary: Checks if current user is logged in
   responses:
-    '200':
-      description: user is authorized
+    '204':
+      description: User is authorized
     '401':
-      description: user is unauthorized
+      description: User is unauthorized

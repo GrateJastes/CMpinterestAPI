@@ -4,7 +4,7 @@ get:
   summary: Get profile of the current user
   responses:
     '200':
-      description: profile found
+      description: Profile found
       content:
         application/json:
           schema:
@@ -20,4 +20,4 @@ get:
               avatarLink:
                 type: string
     '401':
-      description: user is not authorized
+      description: User unauthorized

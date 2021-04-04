@@ -4,11 +4,7 @@ delete:
   summary: Delete profile
   description: This can only be done by authorized user
   responses:
-    '400':
-      description: Invalid username supplied
+    '204':
+      description: Succesful operation
     '401':
-      description: unauthorized
-    '404':
-      description: Profile not found
-    '409':
-      description: conflict happend while deleting entity
+      description: User unauthorized

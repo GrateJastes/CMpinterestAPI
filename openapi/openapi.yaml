@@ -4,6 +4,8 @@ info:
     Pinterest CM sv-cl API
   version: 1.0.5
   title: Pinterbest
+  license:
+    name: Pinterbest
 servers:
   - description: SwaggerHub API Auto Mocking
     url: 'https://virtserver.swaggerhub.com/code-mexicans/pinterestAPI/1.0.5'

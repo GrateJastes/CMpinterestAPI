@@ -1,0 +1,15 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int
+  userID:
+    type: integer
+    format: int
+  pinID:
+    type: integer
+    format: int
+  addingTime:
+    type: date-time
+  text:
+    type: string

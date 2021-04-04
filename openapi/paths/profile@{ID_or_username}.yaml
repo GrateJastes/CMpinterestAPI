@@ -11,7 +11,7 @@ get:
         type: string
   responses:
     '200':
-      description: profile found
+      description: Profile found
       content:
         application/json:
           schema:
@@ -27,6 +27,6 @@ get:
               avatarLink:
                 type: string
     '400':
-      description: Invalid username supplied
+      description: Invalid ID or username supplied
     '404':
       description: Profile not found

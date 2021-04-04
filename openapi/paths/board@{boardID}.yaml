@@ -12,7 +12,7 @@ get:
         format: int
   responses:
     '200':
-      description: successful operation
+      description: Successful operation
       content:
         application/json:
           schema:
@@ -35,11 +35,15 @@ delete:
         type: integer
         format: int
   responses:
+    '204':
+      description: Successfult operation
     '400':
       description: Invalid board ID supplied
+    '401':
+      description: User unauthorized
     '403':
-      description: you can't delet foreign board!
+      description: You can't delet foreign board!
     '404':
       description: Board not found
     '409':
-      description: conflict happend while deleting entity
+      description: Conflict happend while deleting entity

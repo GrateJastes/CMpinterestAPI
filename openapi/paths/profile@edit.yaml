@@ -3,13 +3,6 @@ put:
     - profile
   summary: Update profile
   description: This can only be done by authorized user
-  responses:
-    '200':
-      description: successfully updated profile
-    '401':
-      description: unauthorized
-    '404':
-      description: Profile not found
   requestBody:
     content:
       application/json:
@@ -29,3 +22,12 @@ put:
               format: binary
     description: Updated user object
     required: true
+  responses:
+    '204':
+      description: Successfully updated profile
+    '400':
+      description: Invalid data supplied
+    '401':
+      description: User unauthorized
+    '404':
+      description: Profile not found

@@ -7,28 +7,32 @@ post:
     content:
       multipart/form-data:
         schema:
+          type: object
           properties:
-            title:
-              type: string
-            description:
-              type: string
-            tags:
-              type: array
-              items:
-                type: string
+            pinInfo:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                boardID:
+                  type: integer
             pinImage:
               type: string
               format: binary
-            boardID:
-              type: integer
     description: Created pin
     required: true
   responses:
     '201':
-      description: successfully created pin
+      description: Successfully created pin
     '400':
-      description: failed to creaet pin
+      description: Failed to creaet pin
     '403':
-      description: can't create pin while not logged in
+      description: Can't create pin while not logged in
     '404':
-      description: board didn't found to place pin
+      description: Board didn't found to place pin

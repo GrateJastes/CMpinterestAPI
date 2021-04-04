@@ -1,0 +1,32 @@
+post:
+  tags:
+    - comment
+  summary: Post new comment to pin
+  description: This can only be done by authorized user
+  parameters:
+    - name: pinID
+      in: path
+      description: Pin ID to add a comment
+      required: true
+      schema:
+        type: integer
+        format: int
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+    description: Comment details. Now only text
+    required: true
+  responses:
+    '201':
+      description: Successfully added comment
+    '400':
+      description: Invalid pin ID or other data(text) supplied
+    '401':
+      description: User unauthorized
+    '404':
+      description: Pin not found
