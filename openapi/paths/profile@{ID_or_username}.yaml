@@ -27,6 +27,8 @@ get:
                 type: string
               avatarLink:
                 type: string
+              followed:
+                type: boolean
     '400':
       description: Invalid ID or username supplied
     '404':

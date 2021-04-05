@@ -160,6 +160,8 @@ paths:
                     type: string
                   avatarLink:
                     type: string
+                  followed:
+                    type: boolean
         '400':
           description: Invalid ID or username supplied
         '404':
@@ -231,11 +233,12 @@ paths:
       requestBody:
         content:
           multipart/form-data:
-            type: object
-            properties:
-              avatarImage:
-                type: string
-                format: binary
+            schema:
+              type: object
+              properties:
+                avatarImage:
+                  type: string
+                  format: binary
         description: >-
           Avatar binary image. I'm not sure that it will be only png. Need to
           check that.
@@ -510,7 +513,6 @@ paths:
     get:
       operationId: getPinsByBoardID
       tags:
-        - board
         - pin
       summary: Get pins by board id of their board
       parameters:
