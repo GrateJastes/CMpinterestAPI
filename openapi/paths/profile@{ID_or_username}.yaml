@@ -17,7 +17,7 @@ get:
         application/json:
           schema:
             properties:
-              id:
+              ID:
                 type: integer
               username:
                 type: string
