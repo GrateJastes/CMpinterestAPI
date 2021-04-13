@@ -18,6 +18,8 @@ post:
   responses:
     '204':
       description: Successful operation
+    '401':
+      description: Wrong password
     '400':
       description: Invalid username or password supplied
     '403':
