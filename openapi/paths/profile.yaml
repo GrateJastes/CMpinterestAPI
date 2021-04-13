@@ -22,5 +22,11 @@ get:
                 type: string
               avatarLink:
                 type: string
+              followers:
+                type: integer
+              following:
+                type: integer
+              pins:
+                type: integer
     '401':
       description: User unauthorized

@@ -77,6 +77,8 @@ paths:
           description: Successful operation
         '400':
           description: Invalid username or password supplied
+        '401':
+          description: Wrong password
         '403':
           description: You are already authorized. Log out first
         '404':
@@ -128,6 +130,12 @@ paths:
                     type: string
                   avatarLink:
                     type: string
+                  followers:
+                    type: integer
+                  following:
+                    type: integer
+                  pins:
+                    type: integer
         '401':
           description: User unauthorized
   '/profile/{ID_or_username}':
@@ -162,6 +170,12 @@ paths:
                     type: string
                   followed:
                     type: boolean
+                  followers:
+                    type: integer
+                  following:
+                    type: integer
+                  pins:
+                    type: integer
         '400':
           description: Invalid ID or username supplied
         '404':
