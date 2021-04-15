@@ -31,6 +31,11 @@ post:
   responses:
     '201':
       description: Successfully created pin
+      application/json:
+        schema:
+          properties:
+            ID:
+              type: integer
     '400':
       description: Failed to creaet pin due to invalid data
     '403':
