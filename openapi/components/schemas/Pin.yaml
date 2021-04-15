@@ -6,6 +6,9 @@ properties:
   boardID:
     type: integer
     format: int
+  userID:
+    type: integer
+    format: int
   title:
     type: string
   description:

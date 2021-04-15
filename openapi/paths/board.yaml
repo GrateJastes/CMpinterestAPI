@@ -18,6 +18,12 @@ post:
   responses:
     '201':
       description: Successfully created board
+      content:
+        application/json:
+          schema:
+            properties:
+              ID:
+                type: integer
     '400':
       description: Failed to create board due to invalid propreties
     '401':
