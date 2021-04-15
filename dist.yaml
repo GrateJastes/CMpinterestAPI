@@ -118,7 +118,7 @@ paths:
             application/json:
               schema:
                 properties:
-                  id:
+                  ID:
                     type: integer
                   username:
                     type: string
@@ -639,7 +639,7 @@ components:
     Board:
       type: object
       properties:
-        id:
+        ID:
           type: integer
           format: int
         authorID:
@@ -657,7 +657,7 @@ components:
     Pin:
       type: object
       properties:
-        id:
+        ID:
           type: integer
           format: int
         boardID:
@@ -681,7 +681,7 @@ components:
     Comment:
       type: object
       properties:
-        id:
+        ID:
           type: integer
           format: int
         userID:
