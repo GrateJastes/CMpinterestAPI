@@ -60,3 +60,5 @@ paths:
     $ref: 'paths/comment@{pinID}.yaml'
   '/comments/{pinID}':
     $ref: 'paths/comments@{pinID}.yaml'
+  '/notifications/read/{notificationID}':
+    $ref: 'paths/notifications@read@{notificationID}.yaml'
