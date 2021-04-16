@@ -580,6 +580,31 @@ paths:
           description: Invalid board ID supplied
         '404':
           description: Board not found
+  '/pins/feed/{pinNumber}':
+    get:
+      operationId: getPinsFeed
+      tags:
+        - pin
+      summary: Get pins feed to current user(if authorized)
+      parameters:
+        - name: pinsNumber
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: Max number of pins to fetch
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pin'
   '/comment/{pinID}':
     post:
       operationId: addComment

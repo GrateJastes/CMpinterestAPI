@@ -56,6 +56,8 @@ paths:
     $ref: 'paths/pin@{pinID}.yaml'
   '/pins/{boardID}':
     $ref: 'paths/pins@{boardID}.yaml'
+  '/pins/feed/{pinNumber}':
+    $ref: 'paths/pins@feed{pinsNumber}.yaml'
   '/comment/{pinID}':
     $ref: 'paths/comment@{pinID}.yaml'
   '/comments/{pinID}':
