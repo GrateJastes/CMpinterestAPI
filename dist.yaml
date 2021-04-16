@@ -643,7 +643,7 @@ paths:
     get:
       operationId: getCommentsByPin
       tags:
-        - comments
+        - comment
       summary: Get comments by pin ID
       parameters:
         - name: pinID
