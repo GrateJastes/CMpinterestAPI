@@ -64,3 +64,5 @@ paths:
     $ref: 'paths/comments@{pinID}.yaml'
   '/notifications/read/{notificationID}':
     $ref: 'paths/notifications@read@{notificationID}.yaml'
+  /csrf:
+    $ref: paths/csrf.yaml

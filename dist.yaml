@@ -696,6 +696,15 @@ paths:
           description: Notification not found
         '409':
           description: Already marked
+  /csrf:
+    get:
+      operationId: getCSRFToken
+      tags:
+        - CSRF
+      summary: Get CSRF
+      responses:
+        '204':
+          description: Done
 components:
   schemas:
     Board:

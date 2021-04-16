@@ -1,0 +1,8 @@
+get:
+  operationId: getCSRFToken
+  tags:
+    - CSRF
+  summary: Get CSRF
+  responses:
+    '204':
+      description: Done
