@@ -3,7 +3,7 @@ properties:
   ID:
     type: integer
     format: int
-  authorID:
+  userID:
     type: integer
     format: int
   title:
