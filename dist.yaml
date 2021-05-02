@@ -2,13 +2,13 @@ openapi: 3.0.0
 info:
   description: |
     Pinterest CM sv-cl API
-  version: 1.1.0
+  version: 1.2.0
   title: Pinterbest
   license:
     name: Pinterbest
     url: 'https://github.com/frontend-park-mail-ru/2021_1_Code_Magicians'
 servers:
-  - url: 'http://52.59.228.167:8081'
+  - url: 'https://pinter-best.com'
     description: Main production server
 tags:
   - name: auth
@@ -19,7 +19,7 @@ tags:
     description: Everything about boards
   - name: profile
     description: Operations about profile
-  - name: comments
+  - name: comment
     description: Operations about comments
 paths:
   /auth/signup:
@@ -136,6 +136,8 @@ paths:
                     type: integer
                   pins:
                     type: integer
+                  boards:
+                    type: integer
         '401':
           description: User unauthorized
   '/profile/{ID_or_username}':
@@ -175,6 +177,8 @@ paths:
                   following:
                     type: integer
                   pins:
+                    type: integer
+                  boards:
                     type: integer
         '400':
           description: Invalid ID or username supplied
@@ -694,6 +698,64 @@ paths:
           description: Foreign notification
         '404':
           description: Notification not found
+        '409':
+          description: Already marked
+  '/message/{targetID_or_username}':
+    post:
+      operationId: postMessage
+      tags:
+        - chat
+      summary: Post new message
+      description: This can only be done by authorized user
+      parameters:
+        - name: targetID_or_username
+          in: path
+          schema:
+            type: string
+          description: The ID or profile of target user
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messageText:
+                  type: string
+        description: New message text
+        required: true
+      responses:
+        '201':
+          description: Successfully added message
+        '400':
+          description: Invalid data supplied
+        '401':
+          description: User unauthorized
+        '404':
+          description: Profile not found
+  '/chats/read/{chatID}':
+    put:
+      operationId: markChatRead
+      tags:
+        - chat
+      description: This can only bo done by authorized user
+      parameters:
+        - name: chatID
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: The ID of read chat
+          required: true
+      responses:
+        '204':
+          description: Marked as read
+        '401':
+          description: Unauthorized
+        '403':
+          description: Foreign chat
+        '404':
+          description: Chat not found
         '409':
           description: Already marked
   /csrf:

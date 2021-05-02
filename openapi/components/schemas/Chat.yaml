@@ -1,0 +1,14 @@
+type: object
+properties:
+  ID:
+    type: integer
+    format: int
+  targetProfile:
+    type: integer
+    format: int
+  messages:
+    type: array
+    items:
+      $ref: './Message.yaml'
+  isRead:
+    type: boolean

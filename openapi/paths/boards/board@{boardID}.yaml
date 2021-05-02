@@ -17,7 +17,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Board.yaml
+            $ref: ../../components/schemas/Board.yaml
     '400':
       description: Invalid board ID supplied
     '404':

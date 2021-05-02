@@ -1,0 +1,16 @@
+type: object
+properties:
+  ID:
+    type: integer
+    format: int
+  chatID:
+    type: integer
+    format: int
+  authorID:
+    type: integer
+    format: int
+  text:
+    type: string
+  addingTime:
+    type: string
+    format: date-time

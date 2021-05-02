@@ -21,7 +21,7 @@ get:
               boards:
                 type: array
                 items:
-                  $ref: ../components/schemas/Board.yaml
+                  $ref: ../../components/schemas/Board.yaml
     '400':
       description: Invalid author ID supplied
     '404':

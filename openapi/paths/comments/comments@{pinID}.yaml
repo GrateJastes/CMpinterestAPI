@@ -22,7 +22,7 @@ get:
               comments:
                 type: array
                 items:
-                  $ref: ../components/schemas/Comment.yaml
+                  $ref: ../../components/schemas/Comment.yaml
     '400':
       description: Invalid pin ID supplied
     '404':

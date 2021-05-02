@@ -1,15 +1,8 @@
 get:
-  operationId: getProfileByUsernameOrID
+  operationId: getSelfProfile
   tags:
     - profile
-  summary: Get profile by username OR ID
-  parameters:
-    - name: ID_or_username
-      in: path
-      schema:
-        type: string
-      description: That could be username !OR! userID
-      required: true
+  summary: Get profile of the current user
   responses:
     '200':
       description: Profile found
@@ -25,17 +18,17 @@ get:
                 type: string
               lastName:
                 type: string
+              email:
+                type: string
               avatarLink:
                 type: string
-              followed:
-                type: boolean
               followers:
                 type: integer
               following:
                 type: integer
               pins:
                 type: integer
-    '400':
-      description: Invalid ID or username supplied
-    '404':
-      description: Profile not found
+              boards:
+                type: integer
+    '401':
+      description: User unauthorized

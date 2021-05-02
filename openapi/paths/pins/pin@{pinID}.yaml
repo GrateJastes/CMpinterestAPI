@@ -17,7 +17,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Pin.yaml
+            $ref: ../../components/schemas/Pin.yaml
     '400':
       description: Invalid pin ID supplied
     '404':
