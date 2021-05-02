@@ -1,0 +1,26 @@
+get:
+  operationId: getProfilesSearch
+  tags:
+    - profile
+  summary: Get profiles by search key
+  parameters:
+    - name: searchKey
+      in: path
+      schema:
+        type: string
+      description: The key, provided by client
+      required: true
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              profiles:
+                type: array
+                items:
+                  $ref: ../../components/schemas/Profile.yaml
+    '404':
+      description: Profiles not found

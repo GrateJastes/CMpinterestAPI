@@ -1,0 +1,29 @@
+get:
+  operationId: getFollowingByProfile
+  tags:
+    - profile
+  summary: Get followings by profile id
+  parameters:
+    - name: profileID
+      in: path
+      schema:
+        type: integer
+        format: int
+      description: The ID of target profile
+      required: true
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              profiles:
+                type: array
+                items:
+                  $ref: ../../components/schemas/Profile.yaml
+    '400':
+      description: Invalid profile ID supplied
+    '404':
+      description: Profile not found

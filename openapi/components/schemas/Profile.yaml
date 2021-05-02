@@ -2,21 +2,21 @@ type: object
 properties:
   ID:
     type: integer
-    format: int
   username:
     type: string
   firstName:
     type: string
   lastName:
     type: string
-  email:
-    type: string
-    format: email
-  passwordHash:
-    type: string
   avatarLink:
     type: string
-required:
-  - username
-  - email
-  - password
+  followed:
+    type: boolean
+  followers:
+    type: integer
+  following:
+    type: integer
+  pins:
+    type: integer
+  boards:
+    type: integer

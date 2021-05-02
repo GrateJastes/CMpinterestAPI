@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: |
     Pinterest CM sv-cl API
-  version: 1.2.0
+  version: 1.2.1
   title: Pinterbest
   license:
     name: Pinterbest
@@ -42,6 +42,12 @@ paths:
     $ref: paths/profile/profile@avatar.yaml
   /profile/delete:
     $ref: paths/profile/profile@delete.yaml
+  '/profiles/{searchKey}':
+    $ref: 'paths/profile/profiles@search@{searchKey}.yaml'
+  '/followers/{profileID}':
+    $ref: 'paths/profile/followers@{profileID}.yaml'
+  '/following/{profileID}':
+    $ref: 'paths/profile/following@{profileID}.yaml'
   '/follow/{ID_or_username}':
     $ref: 'paths/profile/follow@{ID_or_username}.yaml'
   /board:
@@ -50,6 +56,8 @@ paths:
     $ref: 'paths/boards/board@{boardID}.yaml'
   '/boards/{authorID}':
     $ref: 'paths/boards/boards@{authorID}.yaml'
+  '/boards/{searchKey}':
+    $ref: 'paths/boards/boards@search@{searchKey}.yaml'
   /pin:
     $ref: paths/pins/pin.yaml
   '/pin/{pinID}':
@@ -57,7 +65,9 @@ paths:
   '/pins/{boardID}':
     $ref: 'paths/pins/pins@{boardID}.yaml'
   '/pins/feed/{pinNumber}':
-    $ref: 'paths/pins/pins@feed{pinsNumber}.yaml'
+    $ref: 'paths/pins/pins@feed@{pinsNumber}.yaml'
+  '/pins/{searchKey}':
+    $ref: 'paths/pins/pins@search@{searchKey}.yaml'
   '/comment/{pinID}':
     $ref: 'paths/comments/comment@{pinID}.yaml'
   '/comments/{pinID}':
@@ -70,4 +80,3 @@ paths:
     $ref: 'paths/chats@read@{chatID}.yaml'
   /csrf:
     $ref: paths/csrf.yaml
-

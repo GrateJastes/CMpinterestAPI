@@ -16,27 +16,7 @@ get:
       content:
         application/json:
           schema:
-            properties:
-              ID:
-                type: integer
-              username:
-                type: string
-              firstName:
-                type: string
-              lastName:
-                type: string
-              avatarLink:
-                type: string
-              followed:
-                type: boolean
-              followers:
-                type: integer
-              following:
-                type: integer
-              pins:
-                type: integer
-              boards:
-                type: integer
+            $ref: ../../components/schemas/Profile.yaml
     '400':
       description: Invalid ID or username supplied
     '404':

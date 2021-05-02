@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: |
     Pinterest CM sv-cl API
-  version: 1.2.0
+  version: 1.2.1
   title: Pinterbest
   license:
     name: Pinterbest
@@ -159,27 +159,7 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  ID:
-                    type: integer
-                  username:
-                    type: string
-                  firstName:
-                    type: string
-                  lastName:
-                    type: string
-                  avatarLink:
-                    type: string
-                  followed:
-                    type: boolean
-                  followers:
-                    type: integer
-                  following:
-                    type: integer
-                  pins:
-                    type: integer
-                  boards:
-                    type: integer
+                $ref: '#/components/schemas/Profile'
         '400':
           description: Invalid ID or username supplied
         '404':
@@ -280,6 +260,93 @@ paths:
           description: Succesful operation
         '401':
           description: User unauthorized
+  '/profiles/{searchKey}':
+    get:
+      operationId: getProfilesSearch
+      tags:
+        - profile
+      summary: Get profiles by search key
+      parameters:
+        - name: searchKey
+          in: path
+          schema:
+            type: string
+          description: 'The key, provided by client'
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+        '404':
+          description: Profiles not found
+  '/followers/{profileID}':
+    get:
+      operationId: getFollowersByProfile
+      tags:
+        - profile
+      summary: Get followers by profile id
+      parameters:
+        - name: profileID
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: The ID of target profile
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+        '400':
+          description: Invalid profile ID supplied
+        '404':
+          description: Profile not found
+  '/following/{profileID}':
+    get:
+      operationId: getFollowingByProfile
+      tags:
+        - profile
+      summary: Get followings by profile id
+      parameters:
+        - name: profileID
+          in: path
+          schema:
+            type: integer
+            format: int
+          description: The ID of target profile
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+        '400':
+          description: Invalid profile ID supplied
+        '404':
+          description: Profile not found
   '/follow/{ID_or_username}':
     post:
       operationId: followProfile
@@ -439,6 +506,33 @@ paths:
                       $ref: '#/components/schemas/Board'
         '400':
           description: Invalid author ID supplied
+        '404':
+          description: Boards not found
+  '/boards/{searchKey}':
+    get:
+      operationId: getBoardsSearch
+      tags:
+        - board
+      summary: Get boards by search key
+      parameters:
+        - name: searchKey
+          in: path
+          schema:
+            type: string
+          description: 'The key, provided by client'
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  boards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Board'
         '404':
           description: Boards not found
   /pin:
@@ -609,6 +703,33 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Pin'
+  '/pins/{searchKey}':
+    get:
+      operationId: getPinsSearch
+      tags:
+        - pin
+      summary: Get pins by search key
+      parameters:
+        - name: searchKey
+          in: path
+          schema:
+            type: string
+          description: 'The key, provided by client'
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pin'
+        '404':
+          description: Pins not found
   '/comment/{pinID}':
     post:
       operationId: addComment
@@ -769,6 +890,29 @@ paths:
           description: Done
 components:
   schemas:
+    Profile:
+      type: object
+      properties:
+        ID:
+          type: integer
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        avatarLink:
+          type: string
+        followed:
+          type: boolean
+        followers:
+          type: integer
+        following:
+          type: integer
+        pins:
+          type: integer
+        boards:
+          type: integer
     Board:
       type: object
       properties:

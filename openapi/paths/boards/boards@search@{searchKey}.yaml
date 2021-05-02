@@ -1,0 +1,26 @@
+get:
+  operationId: getBoardsSearch
+  tags:
+    - board
+  summary: Get boards by search key
+  parameters:
+    - name: searchKey
+      in: path
+      schema:
+        type: string
+      description: The key, provided by client
+      required: true
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              boards:
+                type: array
+                items:
+                  $ref: ../../components/schemas/Board.yaml
+    '404':
+      description: Boards not found
