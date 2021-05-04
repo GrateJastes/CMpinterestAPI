@@ -260,7 +260,7 @@ paths:
           description: Succesful operation
         '401':
           description: User unauthorized
-  '/profiles/{searchKey}':
+  '/profiles/search/{searchKey}':
     get:
       operationId: getProfilesSearch
       tags:
@@ -703,7 +703,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Pin'
-  '/pins/{searchKey}':
+  '/pins/search/{searchKey}':
     get:
       operationId: getPinsSearch
       tags:
